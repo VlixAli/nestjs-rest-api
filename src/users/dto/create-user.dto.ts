@@ -1,5 +1,21 @@
+import { IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
   name: string;
+
+  @IsEmail()
   email: string;
-  role: 'INTERN' | 'ENGINEER' | 'ADMIN';
+
+  @IsEnum(['INTERN', 'ENGINEER', 'ADMIN'], {
+    message: 'Valid role required',
+  })
+  role: Role;
+}
+
+export enum Role {
+  INTERN = 'INTERN',
+  ENGINEER = 'ENGINEER',
+  ADMIN = 'ADMIN',
 }
